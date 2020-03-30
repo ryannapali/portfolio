@@ -1,103 +1,64 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
-import { withTracker } from 'meteor/react-meteor-data';
+import { motion } from "framer-motion"
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
-import { Tasks } from '../api/tasks.js';
+//https://www.framer.com/blog/posts/react-portfolio/
 
-import Task from './Task.js';
-import AccountsUIWrapper from './AccountsUIWrapper.js';
+import Home from './Home.js';
+import {Navbar, Nav, NavDropdown, Form, FormControl, Button} from "react-bootstrap";
 
 // App component - represents the whole app
-class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      hideCompleted: false,
-    };
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-
-    // Find the text field via the React ref
-    const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
-
-    Meteor.call('tasks.insert', text);
-
-    // Clear form
-    ReactDOM.findDOMNode(this.refs.textInput).value = '';
-  }
-
-  toggleHideCompleted() {
-    this.setState({
-      hideCompleted: !this.state.hideCompleted,
-    });
-  }
-
-  renderTasks() {
-    let filteredTasks = this.props.tasks;
-    if (this.state.hideCompleted) {
-      filteredTasks = filteredTasks.filter(task => !task.checked);
-    }
-    return filteredTasks.map((task) => {
-      const currentUserId = this.props.currentUser && this.props.currentUser._id;
-      const showPrivateButton = task.owner === currentUserId;
-
-      return (
-        <Task
-          key={task._id}
-          task={task}
-          showPrivateButton={showPrivateButton}
-        />
-      );
-    });
-  }
+export default class App extends Component {
 
   render() {
     return (
-      <div className="container">
-        <header>
-          <h1>Todo List ({this.props.incompleteCount})</h1>
+        <Router>
+          <Navbar bg="light" expand="lg">
+            <Navbar.Brand href="#home">Welcome to napali.raymundo.org</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="mr-auto">
+                <Nav.Link href="#home">
+                  <Link to="/">Home</Link>
+                </Nav.Link>
+                <Nav.Link href="#link">
+                  <Link to="/about">About</Link>
+                </Nav.Link>
+                <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                  <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                  <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+                  <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                </NavDropdown>
+              </Nav>
+              <Form inline className="search_thing">
+                <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+                <Button variant="outline-success">Search</Button>
+              </Form>
+            </Navbar.Collapse>
+          </Navbar>
+          <div>
 
-          <label className="hide-completed">
-            <input
-              type="checkbox"
-              readOnly
-              checked={this.state.hideCompleted}
-              onClick={this.toggleHideCompleted.bind(this)}
-            />
-            Hide Completed Tasks
-          </label>
-
-          <AccountsUIWrapper />
-
-          { this.props.currentUser ?
-            <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
-              <input
-                type="text"
-                ref="textInput"
-                placeholder="Type to add new tasks"
-              />
-            </form> : ''
-          }
-        </header>
-
-        <ul>
-          {this.renderTasks()}
-        </ul>
-      </div>
+            <Switch>
+              <Route path="/about">
+              </Route>
+              <Route path="/users">
+                <Home />
+              </Route>
+              <Route path="/">
+                <Home />
+              </Route>
+            </Switch>
+          </div>
+        </Router>
     );
   }
 }
-
-export default withTracker(() => {
-  Meteor.subscribe('tasks');
-
-  return {
-    tasks: Tasks.find({}, { sort: { createdAt: -1 } }).fetch(),
-    incompleteCount: Tasks.find({ checked: { $ne: true } }).count(),
-    currentUser: Meteor.user(),
-  };
-})(App);
