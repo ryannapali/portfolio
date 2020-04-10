@@ -1,10 +1,10 @@
 import React, {Component} from "react";
 import AccountsUIWrapper from "./AccountsUIWrapper";
 
-export default class Home extends Component{
+export default class Login extends Component{
     render() {
         return (
-            <div>TEST SPLASH PAGE</div>
+            <AccountsUIWrapper/>
         )
     }
 }

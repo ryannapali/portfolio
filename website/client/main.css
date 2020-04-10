@@ -1,8 +1,6 @@
 /* CSS declarations go here */
 body {
-  font-family: sans-serif;
-  background-attachment: fixed;
-
+  font-family: Colfax, "Neue Helvetica W02", "Helvetica Neue", Helvetica, Arial, sans-serif;  background-attachment: fixed;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -12,6 +10,26 @@ body {
   padding: 0;
   margin: 0;
   font-size: 14px;
+}
+
+.navlink {
+  font-weight: 600;
+  line-height: 1.1;
+  font-size: 15px;
+  letter-spacing: -1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:0;
+  margin:0;
+}
+
+.title {
+  position: center;
+  font-weight: 600;
+  line-height: 1.1;
+  font-size: 58px;
+  letter-spacing: -3px;
 }
 
 .container {
@@ -109,4 +127,8 @@ header .hide-completed {
   .new-task input {
     padding-bottom: 5px;
   }
+}
+
+.nav-bar{
+  background-color: #0f6674;
 }
