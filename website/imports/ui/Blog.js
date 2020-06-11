@@ -3,16 +3,17 @@ import { withTracker } from 'meteor/react-meteor-data';
 import SunEditor, {buttonList} from "suneditor-react";
 import ReactDOM from "react-dom";
 import {Meteor} from "meteor/meteor";
-
+import Editor from "./Editor";
 import {Blogposts} from "../api/blogposts";
 import Blogpost from "./Blogpost";
 
 class Blog extends Component {
     constructor(props) {
         super(props);
-        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
         this.state = {
             hideCompleted: false,
+            contentToUpload: '',
         };
     }
 
@@ -35,74 +36,26 @@ class Blog extends Component {
         });
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
-
-        // Find the text field via the React ref
-        const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
-        const title = ReactDOM.findDOMNode(this.refs.titleInput).value.trim();
-
+    handleSubmit(title,text) {
+        console.log(text)
         Meteor.call('blogposts.insert',text,title);
-
-        // Clear form
-        ReactDOM.findDOMNode(this.refs.textInput).value = '';
-    }
-
-    handleWrongSubmit(event){
-        event.preventDefault();
-    }
-
-    toggleHideCompleted() {
-        this.setState({
-            hideCompleted: !this.state.hideCompleted,
-        });
-    }
-
-    handleChange(contents){
-        console.log(contents);
-    }
+        //
+        // ReactDOM.findDOMNode(this.refs.titleInput).value = '';
+}
 
     render() {
         return(
             <div className="container">
                 <header>
-                    <h1>Blogposts ({this.props.incompleteCount})</h1>
-                    <h1>Testing</h1>
-                    <label className="hide-completed">
-                        <input
-                            type="checkbox"
-                            readOnly
-                            checked={this.props.hideCompleted}
-                            onClick={this.toggleHideCompleted.bind(this)}
-                        />
-                        Hide Completed Tasks
-                    </label>
-
+                    <h1> Welcome to the Blog Page</h1>
                     { (this.props.currentUser) ?
-                        <div>
-                            {/*<form className="new-blogpost" onSubmit={this.handleWrongSubmit}>*/}
-                            {/*    <input*/}
-                            {/*        type="text"*/}
-                            {/*        ref="titleInput"*/}
-                            {/*        placeholder="Please Enter Your Title"*/}
-                            {/*    />*/}
-                            {/*</form>*/}
-                            {/*<form className="new-blogpost" onSubmit={this.handleWrongSubmit}>*/}
-                            {/*    <input*/}
-                            {/*        type="text"*/}
-                            {/*        ref="textInput"*/}
-                            {/*        placeholder="Body of the Blog Post"*/}
-                            {/*    />*/}
-                            {/*</form>*/}
-                            {/*<button className="toggle-private" onClick={this.handleSubmit.bind(this)}>*/}
-                            {/*    Submit*/}
-                            {/*</button>*/}
-                            <SunEditor onChange={(contents)=>this.handleChange(contents)}/>
-                        </div> : ''
-                    }
+                        <Editor submit={(title,text)=>this.handleSubmit(title,text)}/>
+                        : '' }
                 </header>
+
                 <ul>
                     {this.renderTasks()}
+                    This is a test of render tasks
                 </ul>
             </div>
         )
@@ -110,9 +63,8 @@ class Blog extends Component {
 
 }
 
-export default withTracker(() => {
+export default withTracker(()=>{
     Meteor.subscribe('blogposts');
-
     return {
         blogposts: Blogposts.find({}, { sort: { createdAt: -1 } }).fetch(),
         incompleteCount: Blogposts.find({ checked: { $ne: true } }).count(),

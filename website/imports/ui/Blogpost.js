@@ -35,7 +35,8 @@ export default class Blogpost extends Component {
           ) : ''}
           <h1 className="title"><strong>{this.props.blogpost.title}</strong></h1>
         <span className="text">
-            <strong>{this.props.blogpost.createdAt.toDateString()}</strong>{this.props.blogpost.text}
+            <strong>{this.props.blogpost.createdAt.toDateString()}</strong>
+            <div dangerouslySetInnerHTML={{__html:this.props.blogpost.text}}/>
           {/*<strong>{this.props.blogpost.username}</strong>: {this.props.blogpost.text}*/}
         </span>
       </li>

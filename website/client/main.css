@@ -12,16 +12,20 @@ body {
   font-size: 14px;
 }
 
-.navlink {
-  font-weight: 600;
-  line-height: 1.1;
-  font-size: 15px;
-  letter-spacing: -1px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding:0;
-  margin:0;
+.nav-link {
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 0.95rem;
+  color: #ffffff;
+  letter-spacing: 0.0625em;
+  margin-left: 30px;
+}
+
+.logo{
+  font-size:30px;
+  font-family: SignPainter;
+  letter-spacing: .1em;
+  color: #fed136;
+  font-weight: normal;
 }
 
 .title {
@@ -90,7 +94,7 @@ li {
   border-bottom: #eee solid 1px;
 }
 
-li .text {
+li.text {
   margin-left: 10px;
 }
 
@@ -129,6 +133,3 @@ header .hide-completed {
   }
 }
 
-.nav-bar{
-  background-color: #0f6674;
-}
