@@ -1,6 +1,10 @@
 import SunEditor, {buttonList} from "suneditor-react";
 import React, {Component} from "react";
 import ReactDOM from "react-dom";
+import {Container, Row} from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
 
 export default class Editor extends Component {
     constructor(props) {
@@ -40,19 +44,21 @@ export default class Editor extends Component {
 
     render(){
         return(
-            <div>
-                <form className="new-blogpost" onSubmit={this.handleWrongSubmit}>
-                    <input
-                        type="text"
-                        ref="titleInput"
-                        placeholder="Please Enter Your Title"
-                    />
-                </form>
-                <SunEditor onChange={this.handleChange} setContents={this.state.contents}/>
-                <button className="toggle-private" onClick={this.handleSubmit}>
-                    Submit
-                </button>
-            </div>
+            <Form>
+                <Form.Group  as={Row}>
+                    <Col ><Form.Control ref="titleInput" placeholder="Enter Title" /></Col>
+                    <Col ><Button variant="primary" type="submit" onClick={this.handleSubmit}>
+                        Submit Blogpost
+                    </Button></Col>
+                </Form.Group>
+                <SunEditor
+                    onChange={this.handleChange}
+                    setContents={this.state.contents}
+                    setOptions={{
+                    buttonList: buttonList.complex // Or Array of button list, eg. [['font', 'align'], ['image']]
+                    // Other option
+                    }}/>
+            </Form>
         );
 }
 

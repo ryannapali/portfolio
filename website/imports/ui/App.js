@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import {Navbar, Nav, NavDropdown} from "react-bootstrap";
+import {Navbar, Nav, NavDropdown, Container} from "react-bootstrap";
 
 import Login from './Login';
 import Home from './Home.js';
 import Blog from './Blog.js';
 import Photography from './Photography.js';
+
+import './main.css'
 
 // App component - represents the whole app
 export default class App extends Component {
@@ -25,11 +27,11 @@ export default class App extends Component {
     return (
         <Router>
           <Navbar sticky="top" bg="dark" expand="lg">
-            <Navbar.Brand bsPrefix="logo" href="#home">Napali Raymundo</Navbar.Brand>
+            <Navbar.Brand bsPrefix="logo" href="#home" >Napali Raymundo</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="ml-auto">
-                <Nav.Link href="/blog">BLOG</Nav.Link>
+                <Nav.Link className="navlink" href="/blog">BLOG</Nav.Link>
                 <Nav.Link href="/photography">PHOTOGRAPHY</Nav.Link>
                 <Nav.Link href="/pottery">POTTERY</Nav.Link>
                 <NavDropdown title="PROJECTS" id="basic-nav-dropdown">

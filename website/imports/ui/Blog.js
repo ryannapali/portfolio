@@ -6,6 +6,8 @@ import {Meteor} from "meteor/meteor";
 import Editor from "./Editor";
 import {Blogposts} from "../api/blogposts";
 import Blogpost from "./Blogpost";
+import {Card, Container} from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 
 class Blog extends Component {
     constructor(props) {
@@ -37,27 +39,20 @@ class Blog extends Component {
     }
 
     handleSubmit(title,text) {
-        console.log(text)
         Meteor.call('blogposts.insert',text,title);
-        //
-        // ReactDOM.findDOMNode(this.refs.titleInput).value = '';
 }
 
     render() {
         return(
-            <div className="container">
+            <Container className="frame">
                 <header>
-                    <h1> Welcome to the Blog Page</h1>
-                    { (this.props.currentUser) ?
-                        <Editor submit={(title,text)=>this.handleSubmit(title,text)}/>
-                        : '' }
+                    <Editor submit={(title,text)=>this.handleSubmit(title,text)}/>
                 </header>
 
                 <ul>
                     {this.renderTasks()}
-                    This is a test of render tasks
                 </ul>
-            </div>
+            </Container>
         )
     }
 
