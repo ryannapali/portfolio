@@ -1,10 +1,10 @@
 import React, {Component} from "react";
-import AccountsUIWrapper from "./AccountsUIWrapper";
+import { LoginForm } from "./LoginForm.js";
 
 export default class Login extends Component{
     render() {
         return (
-            <AccountsUIWrapper/>
+            <LoginForm> </LoginForm>
         )
     }
 }

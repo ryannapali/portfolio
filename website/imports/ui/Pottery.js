@@ -4,12 +4,12 @@ import SunEditor, {buttonList} from "suneditor-react";
 import ReactDOM from "react-dom";
 import {Meteor} from "meteor/meteor";
 import Editor from "./Editor";
-import {Blogposts} from "../api/blogposts";
-import Blogpost from "./Blogpost";
+import {PotteryPieces} from "../api/potteryPieces";
+import PotteryPiece from "./PotteryPiece";
 import {Card, Container} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
-class Blog extends Component {
+class Pottery extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -20,17 +20,17 @@ class Blog extends Component {
     }
 
     renderTasks() {
-        let filteredTasks = this.props.blogposts;
+        let filteredTasks = this.props.potteryPieces;
         if (this.state.hideCompleted) {
-            filteredTasks = filteredTasks.filter(blogpost => !blogpost.checked);
+            filteredTasks = filteredTasks.filter(potteryPiece => !potteryPiece.checked);
         }
-        return filteredTasks.map((blogpost) => {
+        return filteredTasks.map((potteryPiece) => {
             const currentUserId = this.props.currentUser && this.props.currentUser._id;
-            const showPrivateButton = blogpost.owner === currentUserId;
+            const showPrivateButton = potteryPiece.owner === currentUserId;
             return (
-                <Blogpost
-                    key={blogpost._id}
-                    blogpost={blogpost}
+                <PotteryPiece
+                    key={potteryPiece._id}
+                    potteryPiece={potteryPiece}
                     showPrivateButton={showPrivateButton}
                 />
             );
@@ -38,8 +38,8 @@ class Blog extends Component {
     }
 
     handleSubmit(title,text) {
-        Meteor.call('blogposts.insert',text,title);
-}
+        Meteor.call('potteryPieces.insert',text,title);
+    }
 
     render() {
         return(
@@ -58,10 +58,10 @@ class Blog extends Component {
 }
 
 export default withTracker(()=>{
-    Meteor.subscribe('blogposts');
+    Meteor.subscribe('potteryPieces');
     return {
-        blogposts: Blogposts.find({}, { sort: { createdAt: -1 } }).fetch(),
-        incompleteCount: Blogposts.find({ checked: { $ne: true } }).count(),
+        potteryPieces: PotteryPieces.find({}, { sort: { createdAt: -1 } }).fetch(),
+        incompleteCount: PotteryPieces.find({ checked: { $ne: true } }).count(),
         currentUser: Meteor.user(),
     };
-})(Blog);
+})(Pottery);

@@ -6,6 +6,7 @@ import Login from './Login';
 import Home from './Home.js';
 import Blog from './Blog.js';
 import Photography from './Photography.js';
+import Pottery from './Pottery.js';
 
 import './main.css'
 
@@ -50,6 +51,7 @@ export default class App extends Component {
             <Route path="/(|about)" component={Home}/>
             <Route path="/login" component={Login}/>
             <Route path="/blog" component={Blog}/>
+            <Route path="/pottery" compomnent={Pottery}/>
             <Route path="/users"/>
             <Route path="/photography" component={Photography}/>
           </Switch>
