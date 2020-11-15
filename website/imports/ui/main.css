@@ -146,6 +146,18 @@ header .hide-completed {
 STYLING FOR LOGIN PAGE AND LOGIN BUTTONS
  */
 
+.Form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  justify-content: center;
+  align-items: center;
+  margin: 8px;
+  background-color: #62807e;
+
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
@@ -176,10 +188,16 @@ STYLING FOR LOGIN PAGE AND LOGIN BUTTONS
 }
 
 .login-form > div > input:focus {
+  /*background-color: #62807e;*/
+
   outline: 0;
 }
 
-.login-form > div > button {
+.login-form > span > button:hover {
   background-color: #62807e;
 }
 
+.login-form > span > button {
+  padding: 10px;
+  margin: 10px;
+}

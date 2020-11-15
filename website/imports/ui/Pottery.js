@@ -38,6 +38,7 @@ class Pottery extends Component {
     }
 
     handleSubmit(title,text) {
+        alert("submitting");
         Meteor.call('potteryPieces.insert',text,title);
     }
 
@@ -45,7 +46,9 @@ class Pottery extends Component {
         return(
             <Container className="frame">
                 <header>
+                    {this.props.currentUser?
                     <Editor submit={(title,text)=>this.handleSubmit(title,text)}/>
+                    : ""}
                 </header>
 
                 <ul>

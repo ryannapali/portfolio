@@ -27,31 +27,31 @@ export default class PotteryPiece extends Component {
             <Container>
 
                 <Card>
-                    <Card.Header>{this.props.potteryPiece.title}</Card.Header>
+                    <Card.Header>
+                        {this.props.potteryPiece.title}
+                        {this.props.showPrivateButton ? (
+                        <button className="delete" onClick={this.deleteThisTask.bind(this)}>
+                            &times;
+                        </button>
+                    ) : ''}</Card.Header>
                     <Card.Body>
                         <Card.Text dangerouslySetInnerHTML={{__html:this.props.potteryPiece.text}} />
                         <Button variant="primary">Go somewhere</Button>
                     </Card.Body>
                 </Card>
-                {/*        <li className={potteryPieceClassName}>*/}
-                {/*            { this.props.showPrivateButton ? (*/}
-                {/*                <button className="toggle-private" onClick={this.togglePrivate.bind(this)}>*/}
-                {/*                    { this.props.potteryPiece.private ? 'Private' : 'Public' }*/}
-                {/*                </button>*/}
-                {/*            ) : ''}*/}
-
-                {/*            {this.props.showPrivateButton ? (*/}
-                {/*                <button className="delete" onClick={this.deleteThisTask.bind(this)}>*/}
-                {/*                    &times;*/}
-                {/*                </button>*/}
-                {/*            ) : ''}*/}
-                {/*            <h1 className="title"><strong>{this.props.potteryPiece.title}</strong></h1>*/}
-                {/*            <span className="text">*/}
-                {/*    <strong>{this.props.potteryPiece.createdAt.toDateString()}</strong>*/}
-                {/*    <div dangerouslySetInnerHTML={{__html:this.props.potteryPiece.text}}/>*/}
-                {/*                /!*<strong>{this.props.potteryPiece.username}</strong>: {this.props.potteryPiece.text}*!/*/}
-                {/*</span>*/}
-                {/*        </li>*/}
+                <li className={potteryPieceClassName}>
+                    { this.props.showPrivateButton ? (
+                        <button className="toggle-private" onClick={this.togglePrivate.bind(this)}>
+                            { this.props.potteryPiece.private ? 'Private' : 'Public' }
+                        </button>
+                    ) : ''}
+                    <h1 className="title"><strong>{this.props.potteryPiece.title}</strong></h1>
+                    <span className="text">
+                    <strong>{this.props.potteryPiece.createdAt.toDateString()}</strong>
+                    <div dangerouslySetInnerHTML={{__html:this.props.potteryPiece.text}}/>
+                        <strong>{this.props.potteryPiece.username}</strong>: {this.props.potteryPiece.text}
+                </span>
+                </li>
             </Container>
         );
     }

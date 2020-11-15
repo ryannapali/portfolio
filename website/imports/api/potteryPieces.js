@@ -2,12 +2,12 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 
-export const PotteryPieces = new Mongo.Collection('potterPieces');
+export const PotteryPieces = new Mongo.Collection('potteryPieces');
 
 if (Meteor.isServer) {
     // This code only runs on the server
     // Only publish tasks that are public or belong to the current user
-    Meteor.publish('potterPieces', function potterPiecesPublication() {
+    Meteor.publish('potteryPieces', function potteryPiecesPublication() {
         return PotteryPieces.find({
             $or: [
                 { private: { $ne: true } },
@@ -18,7 +18,7 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-    'potterPieces.insert'(text,title) {
+    'potteryPieces.insert'(text,title) {
         check(text, String);
         check(title,String);
         // Make sure the user is logged in before inserting a task
@@ -34,7 +34,7 @@ Meteor.methods({
             username: Meteor.users.findOne(this.userId).username,
         });
     },
-    'potterPieces.remove'(potteryPieceId) {
+    'potteryPieces.remove'(potteryPieceId) {
         check(potteryPieceId, String);
 
         const potteryPiece = PotteryPieces.findOne(potteryPieceId);
@@ -45,7 +45,7 @@ Meteor.methods({
 
         PotteryPieces.remove(potteryPieceId);
     },
-    'potterPieces.setChecked'(potteryPieceId, setChecked) {
+    'potteryPieces.setChecked'(potteryPieceId, setChecked) {
         check(potteryPieceId, String);
         check(setChecked, Boolean);
 
@@ -57,7 +57,7 @@ Meteor.methods({
 
         PotteryPieces.update(potteryPieceId, { $set: { checked: setChecked } });
     },
-    'potterPieces.setPrivate'(potteryPieceId, setToPrivate) {
+    'potteryPieces.setPrivate'(potteryPieceId, setToPrivate) {
         check(potteryPieceId, String);
         check(setToPrivate, Boolean);
 

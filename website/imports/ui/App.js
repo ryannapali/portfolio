@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import {Navbar, Nav, NavDropdown, Container} from "react-bootstrap";
+import { useTracker } from 'meteor/react-meteor-data';
 
 import Login from './Login';
 import Home from './Home.js';
@@ -9,12 +10,13 @@ import Photography from './Photography.js';
 import Pottery from './Pottery.js';
 
 import './main.css'
+import {Meteor} from "meteor/meteor";
 
 // App component - represents the whole app
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state={tempBlogForm:'please enter your text',};
+    this.state={tempBlogForm:'please enter your text', username:'no-user-yet'};
     this.updateForm = this.updateForm.bind(this)
   }
 
@@ -51,8 +53,7 @@ export default class App extends Component {
             <Route path="/(|about)" component={Home}/>
             <Route path="/login" component={Login}/>
             <Route path="/blog" component={Blog}/>
-            <Route path="/pottery" compomnent={Pottery}/>
-            <Route path="/users"/>
+            <Route path="/pottery" component={Pottery}/>
             <Route path="/photography" component={Photography}/>
           </Switch>
         </Router>
